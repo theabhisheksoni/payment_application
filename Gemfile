@@ -72,9 +72,7 @@ group :development do
 
   gem 'rubocop-rails', require: false
 
-  gem "rspec-rails"
-
-  gem "factory_bot_rails"
+  gem 'devise'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
