@@ -1,0 +1,16 @@
+.card-header
+  h2
+    | Payment processing system
+.main-container
+  .row
+    .center-block
+      h1
+        | Hello,
+      p
+        | Welcome to Payment processing system.
+      p
+        | Here you can check the list of created merchants and perform edit & delete operations on the same.
+      - if user_signed_in?
+        = link_to 'Merchants', '#', class: 'btn btn-info pull-left'
+      - else
+        = link_to 'Login', new_user_session_path, class: 'btn btn-info pull-left'

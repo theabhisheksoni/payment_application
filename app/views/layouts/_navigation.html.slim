@@ -1,0 +1,13 @@
+nav.navbar.navbar-expand-lg.bg-dark[role="navigation"]
+  a.navbar-brand.text-white[href="#"]
+    | Payment processing system
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.navbar-nav
+      li.nav-item
+        = link_to 'Home', root_path, class: "nav-link text-white"
+      - if user_signed_in?
+        li.nav-item
+          = link_to 'Logout', destroy_user_session_path, class: "nav-link text-white", data: { "turbo-method": :delete }
+      - else
+        li.nav-item
+          = link_to 'Login', new_user_session_path, class: "nav-link text-white"
