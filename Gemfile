@@ -74,6 +74,8 @@ group :development do
 
   gem 'devise'
 
+  gem 'jwt'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
