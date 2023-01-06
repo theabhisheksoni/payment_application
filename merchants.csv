@@ -1,0 +1,8 @@
+Name,Email,Description,Status,AdminId
+Merchant1,merchant1@yopmail.com,Related description,active,1
+Merchant2,merchant2@yopmail.com,Related description 2,active,1
+Merchant3,merchant3@yopmail.com,Related description 3,inactive,1
+Merchant4,merchant4@yopmail.com,Related description 4,active,1
+Merchant5,merchant5@yopmail.com,Related description 5,inactive,1
+Merchant6,merchant6@yopmail.com,Related description 6,active,1
+Merchant7,merchant7@yopmail.com,Related description 7,active,1
