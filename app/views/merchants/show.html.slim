@@ -1,0 +1,29 @@
+.card-header
+  h2
+    = @merchant.name
+
+.card-body
+  .row
+    .col-2
+      strong
+        | Email:
+    .col-10
+      = @merchant.email
+  .row
+    .col-2
+      strong
+        | Description:
+    .col-10
+      = @merchant.description
+  .row
+    .col-2
+      strong
+        | Status:
+    .col-10
+      = @merchant.status
+
+.card-footer
+  .row
+    .col-12
+      = link_to 'Edit', edit_merchant_path(@merchant), class: "btn btn-outline-primary mr-3"
+      = link_to 'Back', merchants_path, class: "btn btn-outline-dark"

@@ -1,0 +1,28 @@
+= form_with(model: merchant, local: true) do |form|
+  - if merchant.errors.any?
+    #error_explanation
+      h2
+        = pluralize(merchant.errors.count, "error")
+        |  prohibited this merchant from being saved:
+      ul
+        - merchant.errors.full_messages.each do |message|
+          li
+            = message
+  .form-group.row
+    .col-md-6
+      = form.label :name, class: "font-weight-bold"
+      = form.text_field :name, class: 'form-control'
+  .form-group.row
+    .col-md-6
+      = form.label :email, class: "font-weight-bold"
+      = form.text_field :email, class: 'form-control'
+  .form-group.row
+    .col-md-6
+      = form.label :description, class: "font-weight-bold"
+      = form.text_area :description, class: 'form-control'
+  .form-group.row
+    .col-md-6.month-direction
+      = form.collection_radio_buttons :status, [['active', 'Active'] ,['inactive', 'Inactive']], :first, :last , style: "display:inline", default: true
+  .actions
+    = form.submit 'Save', class: 'btn btn-primary'
+brs

@@ -1,0 +1,38 @@
+.card-header.d-flex.align-items-center.justify-content-between
+  h2
+    | Merchants
+
+.card-body
+  - if @merchants.blank?
+    div
+      h3
+        |  No merchant created yet!!!!
+  - else
+    table.table.table-striped
+      thead
+        tr
+          th[scope="col"]
+            | Name
+          th[scope="col"]
+            | Email
+          th[scope="col"]
+            | Description
+          th[scope="col"]
+            | Status
+          th[scope="col"]
+            | Actions
+      tbody
+        - @merchants.each do |merchant|
+          tr
+            td
+              = merchant.name
+            td
+              = merchant.email
+            td
+              = merchant.description
+            td
+              = merchant.status
+            td
+              = link_to 'View', merchant_path(merchant), class: 'btn btn-outline-success'
+              = link_to 'Edit', edit_merchant_path(merchant), class: 'btn btn-outline-primary'
+              = link_to 'Remove', merchant_path(merchant), class: 'btn btn-outline-danger', data: {"turbo-method": :delete, "turbo-confirm": 'Are you sure?'}

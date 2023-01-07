@@ -1,0 +1,10 @@
+.card-header
+  h2
+    | Editing Merchant
+.card-body
+  = render 'form', merchant: @merchant
+.card-footer
+  .row
+    .col-12
+      = link_to 'Show', @merchant, class: "btn btn-outline-primary mr-3"
+      = link_to 'Back', merchants_path, class: "btn btn-outline-dark"
