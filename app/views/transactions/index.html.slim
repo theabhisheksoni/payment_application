@@ -1,0 +1,41 @@
+.card-header.align-items-center.justify-content-between
+  .row
+    .col-11
+      strong
+        | Transactions
+    .col-1
+      = link_to 'Back', merchants_path, class: "btn btn-outline-dark"
+
+
+.card-body
+  - if @transactions.blank?
+    div
+      h3
+        |  No transaction created yet!!!!
+  - else
+    table.table.table-striped
+      thead
+        tr
+          th[scope="col"]
+            | Status
+          th[scope="col"]
+            | Amount
+          th[scope="col"]
+            | Customer Email
+          th[scope="col"]
+            | Customer Phone
+          th[scope="col"]
+            | Actions
+      tbody
+        - @transactions.each do |transaction|
+          tr
+            td
+              = transaction.status
+            td
+              = transaction.amount
+            td
+              = transaction.customer_email
+            td
+              = transaction.customer_phone
+            td
+              = link_to 'View', merchant_transaction_path(transaction.merchant_id, transaction), class: 'btn btn-outline-success'

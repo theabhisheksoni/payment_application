@@ -35,4 +35,5 @@
             td
               = link_to 'View', merchant_path(merchant), class: 'btn btn-outline-success'
               = link_to 'Edit', edit_merchant_path(merchant), class: 'btn btn-outline-primary'
+              = link_to 'Transactions', merchant_transactions_path(merchant), class: 'btn btn-outline-primary'
               = link_to 'Remove', merchant_path(merchant), class: 'btn btn-outline-danger', data: {"turbo-method": :delete, "turbo-confirm": 'Are you sure?'}

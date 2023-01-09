@@ -1,0 +1,34 @@
+.card-header
+  h2
+    = "Transaction##{@transaction.id}"
+
+.card-body
+  .row
+    .col-2
+      strong
+        | Status:
+    .col-10
+      = @transaction.status
+  .row
+    .col-2
+      strong
+        | Amount:
+    .col-10
+      = @transaction.amount
+  .row
+    .col-2
+      strong
+        | Customer Email:
+    .col-10
+      = @transaction.customer_email
+  .row
+    .col-2
+      strong
+        | Customer Phone:
+    .col-10
+      = @transaction.customer_phone
+
+.card-footer
+  .row
+    .col-12
+      = link_to 'Back', merchant_transactions_path(@merchant), class: "btn btn-outline-dark"
