@@ -10,6 +10,9 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
     = render 'layouts/navigation'
+    - flash.each do |type, msg|
+      .alert.alert-info
+        = msg
     .container-fluid
       .container
         .card.mt-5
