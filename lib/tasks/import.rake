@@ -28,7 +28,7 @@ namespace :import do
       description: params['Description'],
       status: params['Status'],
       encrypted_password: encrypted_password(params['Email']),
-      type: "Merchant",
+      type: 'Merchant',
       admin_id: admin_id(params['AdminId'])
     }
   end
@@ -37,7 +37,7 @@ namespace :import do
     {
       name: params['Name'],
       email: params['Email'],
-      type: "Admin",
+      type: 'Admin',
       encrypted_password: encrypted_password(params['Email'])
     }
   end
@@ -52,6 +52,6 @@ namespace :import do
   end
 
   def admin_id(id)
-    Admin.find_by(id: params['AdminId'])&.id
+    Admin.find_by(id: id)&.id
   end
 end

@@ -1,7 +1,10 @@
 class Merchant < User
   belongs_to :admin, class_name: 'Admin'
   has_many :transactions, dependent: :destroy
-  before_destroy :check_for_related_transactions
+  
+  before_destroy :check_for_related_transactions, prepend: true do
+    throw :abort if transactions.exists?
+  end
 
   def authorize_transactions
     transactions.authorized
@@ -26,9 +29,6 @@ class Merchant < User
   private
 
   def check_for_related_transactions
-    return true if transactions.none?
-  
     errors.add(:base, 'Cannot delete merchant with related transactions')
-    throw :abort
   end
 end

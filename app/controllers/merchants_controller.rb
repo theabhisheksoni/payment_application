@@ -21,7 +21,7 @@ class MerchantsController < ApplicationController
     if @merchant.destroy
       flash[:notice] = 'Merchant deleted successfully'
     else
-      flash[:error] = @merchant.errors.full_messages.join(',')
+      flash[:error] = @merchant.reload.errors.full_messages.join(',')
     end
     redirect_to merchants_path
   end
