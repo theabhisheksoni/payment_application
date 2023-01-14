@@ -16,7 +16,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def charge_transaction
-    if @parent_transaction.is_authorized?
+    if @parent_transaction.is_authorized_and_approved?
       charge_transaction = @parent_transaction.charge_transactions.new(update_transaction_params.merge(status: @status))
       if charge_transaction.save
         json_response(charge_transaction.as_json, 200)
@@ -24,7 +24,7 @@ class Api::V1::TransactionsController < ApplicationController
         json_response(charge_transaction.errors.as_json, 400)
       end
     else
-      json_response({ error: 'Authorize transaction required' }, 400)
+      json_response({ error: 'Authorize transaction with approved status required' }, 400)
     end
   end
 
@@ -42,7 +42,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def reversal_transaction
-    if @parent_transaction.is_authorized?
+    if @parent_transaction.is_authorized_and_approved?
       reversal_transaction = @parent_transaction.reversal_transactions.new(parent_attributes.merge(status: @status))
       if reversal_transaction.save
         json_response(reversal_transaction.as_json, 200)
@@ -50,7 +50,7 @@ class Api::V1::TransactionsController < ApplicationController
         json_response(reversal_transaction.errors.as_json, 400)
       end
     else
-      json_response({ error: 'Authorize transaction required' }, 400)
+      json_response({ error: 'Authorize transaction with approved status  required' }, 400)
     end
   end
 
@@ -79,6 +79,6 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def set_status
-    @status = can_be_referenced? ? 'approved' : 'error'
+    @status = @parent_transaction.can_be_referenced? ? 'approved' : 'error'
   end
 end

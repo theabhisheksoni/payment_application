@@ -1,6 +1,6 @@
 class Transaction < ApplicationRecord
   belongs_to :merchant, class_name: 'Merchant'
-  enum status: %i[approved reversed refunded error]
+  enum :status, { approved: 0, reversed: 1, refunded: 2, error: 3 }
 
   validates :uuid, :status, presence: true
   validates :customer_email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/ }
@@ -32,6 +32,10 @@ class Transaction < ApplicationRecord
 
   def is_charged_and_approved?
     is_charged? && approved?
+  end
+
+  def is_authorized_and_approved?
+    is_authorized? && approved?
   end
 
   def can_be_referenced?
