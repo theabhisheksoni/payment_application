@@ -19,7 +19,7 @@ module Api
       end
 
       def charge_transaction
-        if @parent_transaction.authorized_and_approved?
+        if @parent_transaction.is_authorized?
           charge_transaction = @parent_transaction.charge_transactions.new(update_transaction_params.merge(status: @status))
           if charge_transaction.save
             json_response(charge_transaction.as_json, 200)
@@ -32,7 +32,7 @@ module Api
       end
 
       def refund_transaction
-        if @parent_transaction.charged_and_approved?
+        if @parent_transaction.is_charged?
           refund_transaction = @parent_transaction
                                .refund_transactions
                                .new(update_transaction_params.merge(status: @status))
@@ -47,7 +47,7 @@ module Api
       end
 
       def reversal_transaction
-        if @parent_transaction.authorized_and_approved?
+        if @parent_transaction.is_authorized?
           reversal_transaction = @parent_transaction
                                  .reversal_transactions
                                  .new(parent_attributes.merge(status: @status))

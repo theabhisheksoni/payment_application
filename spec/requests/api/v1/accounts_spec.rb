@@ -9,7 +9,8 @@ RSpec.describe 'Api::V1::Accounts', type: :request do
       let(:auth_params) do
         {
           email: merchant.email,
-          password: merchant.password
+          # password: merchant.password
+          password: "#{merchant.email.split('@').first}pass123"
         }
       end
       it 'generates token' do

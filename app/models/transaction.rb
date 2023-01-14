@@ -30,14 +30,6 @@ class Transaction < ApplicationRecord
     type == 'ReversalTransaction'
   end
 
-  def charged_and_approved?
-    is_charged? && approved?
-  end
-
-  def authorized_and_approved?
-    is_authorized? && approved?
-  end
-
   def can_be_referenced?
     approved? || refunded?
   end
