@@ -26,7 +26,7 @@ class JwtTokenService
 
   # Validates if the token is expired by exp parameter
   def self.expired(payload)
-    Time.at(payload['expiration_time']) < Time.now
+    Time.zone.at(payload['expiration_time']) < Time.zone.now
   end
 
   def self.secret_key

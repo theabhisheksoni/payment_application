@@ -1,2 +1,6 @@
-module Api::V1::TransactionsHelper
+module Api
+  module V1
+    module TransactionsHelper
+    end
+  end
 end

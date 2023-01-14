@@ -1,7 +1,7 @@
 class Merchant < User
   belongs_to :admin, class_name: 'Admin'
   has_many :transactions, dependent: :destroy
-  
+
   before_destroy :check_for_related_transactions, prepend: true do
     throw :abort if transactions.exists?
   end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class RefundTransaction < Transaction
-  belongs_to :charge_transaction, class_name: 'ChargeTransaction', foreign_key: 'reference_id'
+  belongs_to :charge_transaction, class_name: 'ChargeTransaction',
+                                  foreign_key: 'reference_id',
+                                  inverse_of: :refund_transactions
 
   after_create :change_charge_transaction_status
 

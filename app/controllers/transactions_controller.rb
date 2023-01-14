@@ -2,7 +2,7 @@ class TransactionsController < ApplicationController
   before_action :set_merchant
 
   def index
-    @transactions = @merchant.transactions    
+    @transactions = @merchant.transactions
   end
 
   def show

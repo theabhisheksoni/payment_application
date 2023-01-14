@@ -30,11 +30,11 @@ class Transaction < ApplicationRecord
     type == 'ReversalTransaction'
   end
 
-  def is_charged_and_approved?
+  def charged_and_approved?
     is_charged? && approved?
   end
 
-  def is_authorized_and_approved?
+  def authorized_and_approved?
     is_authorized? && approved?
   end
 
@@ -44,7 +44,7 @@ class Transaction < ApplicationRecord
 
   private
 
-    def set_uuid
-      self.uuid = SecureRandom.uuid
-    end
+  def set_uuid
+    self.uuid = SecureRandom.uuid
+  end
 end

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Transactions", type: :request do
-  let(:admin) { create :admin } 
+RSpec.describe 'Api::V1::Transactions', type: :request do
+  let(:admin) { create :admin }
   let(:merchant) { create :merchant, admin: admin }
   let(:transaction) { create :transaction, merchant: merchant }
   let(:auth_header) { { 'Authorization' => JwtTokenService.encode(user_id: merchant.id) } }
 
-  describe "post /transactions" do
+  describe 'post /transactions' do
     let(:transaction_params) do
       {
         transaction: {
@@ -16,24 +16,38 @@ RSpec.describe "Api::V1::Transactions", type: :request do
         }
       }
     end
-    it "contains the transaction with status Approved" do
+    it 'contains the transaction with status Approved' do
       post api_v1_transactions_path, params: transaction_params, headers: auth_header
       expect(response).to have_http_status(:success)
-      expect(Transaction.last.attributes.slice('customer_email', 'customer_phone', 'amount', 'status', 'merchant_id', 'type')).to eq(transaction_params[:transaction].merge(status: 'approved', merchant_id: merchant.id, type: 'AuthorizeTransaction').with_indifferent_access)
+      expect(Transaction.last
+                        .attributes
+                        .slice(
+                          'customer_email', 'customer_phone',
+                          'amount', 'status', 'merchant_id',
+                          'type'
+                        ))
+        .to(eq(
+              transaction_params[:transaction]
+                .merge(
+                  status: 'approved',
+                  merchant_id: merchant.id,
+                  type: 'AuthorizeTransaction'
+                ).with_indifferent_access
+            ))
     end
   end
 
-  describe "put /charge_transaction" do
+  describe 'put /charge_transaction' do
     let(:authorize_transaction) { create(:authorize_transaction, merchant: merchant) }
 
     context 'creates charge transaction' do
-      before {
+      before do
         put charge_transaction_api_v1_transaction_path(authorize_transaction), headers: auth_header, params: {
           'transaction': {
             'amount': authorize_transaction.amount
           }
         }
-      }
+      end
 
       it 'for authorize_transaction' do
         expect(authorize_transaction.charge_transactions.count).to eq(1)
@@ -47,18 +61,35 @@ RSpec.describe "Api::V1::Transactions", type: :request do
     end
   end
 
-  describe "put /refund_transaction" do
+  describe 'put /refund_transaction' do
     let(:charge_transaction) { create(:charge_transaction, merchant: merchant) }
-    it "contains refund transaction status as approved and update parent trasaction status as refunded" do
-      expect { put refund_transaction_api_v1_transaction_path(charge_transaction), headers: auth_header, params: { 'transaction': { 'amount': 100 }} }.to change(RefundTransaction, :count).by(1)
+    it 'contains refund transaction status as approved and update parent trasaction status as refunded' do
+      expect do
+        put refund_transaction_api_v1_transaction_path(charge_transaction),
+            headers: auth_header,
+            params: {
+              'transaction': {
+                'amount': 100
+              }
+            }
+      end.to change(RefundTransaction, :count).by(1)
       expect(charge_transaction.reload.refunded?).to be true
     end
   end
 
-  describe "put /reversal_transaction" do
+  describe 'put /reversal_transaction' do
     let(:authorize_transaction) { create(:authorize_transaction, merchant: merchant) }
-    it "contains reversal transaction status as approved and update parent trasaction status as reversed" do
-      expect { put reversal_transaction_api_v1_transaction_path(authorize_transaction), headers: auth_header, params: { 'transaction': { 'status': 'approved' }} }.to change(ReversalTransaction, :count).by(1)
+    it 'contains reversal transaction status as approved and update parent trasaction status as reversed' do
+      expect do
+        put reversal_transaction_api_v1_transaction_path(authorize_transaction),
+            headers: auth_header,
+            params: {
+              'transaction':
+              {
+                'status': 'approved'
+              }
+            }
+      end.to change(ReversalTransaction, :count).by(1)
       expect(authorize_transaction.reload.reversed?).to be true
     end
   end

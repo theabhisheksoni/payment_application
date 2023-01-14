@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Accounts', type: :request do
   let(:merchant) { create :merchant }
   let(:token) { JwtTokenService.encode(user_id: merchant.id) }
-  
+
   describe '#authentication' do
     context 'valid credentials' do
       let(:auth_params) do
@@ -17,7 +17,7 @@ RSpec.describe 'Api::V1::Accounts', type: :request do
         expect(json_response(response)['access_token']).to eq(token)
       end
     end
-    
+
     context 'invalid credentials' do
       let(:auth_params) do
         {
