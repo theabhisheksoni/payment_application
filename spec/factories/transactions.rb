@@ -3,7 +3,7 @@ FactoryBot.define do
     status { 'approved' }
     customer_email { Faker::Internet.email }
     customer_phone { Faker::PhoneNumber.cell_phone_with_country_code }
-    amount { Faker::Number.decimal }
+    amount { Faker::Number.number(digits: 2) }
     merchant
   end
 
